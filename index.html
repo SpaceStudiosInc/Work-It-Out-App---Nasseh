@@ -8,13 +8,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bk:#000;--d1:#82233c;--d2:#b93d5c;--p1:#ed5279;--p2:#f57a96;--card:#120508;--bd:#2e111b;--tx:#fff;--mut:#c9a3ad}
+:root{--bk:#000;--d1:#82233c;--d2:#b93d5c;--p1:#ed5279;--p2:#f57a96;--card:#120508;--bd:#2e111b;--mut:#c9a3ad}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bk);color:var(--tx);font-family:Lato,system-ui,-apple-system,sans-serif;padding-bottom:calc(74px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bk);color:#fff;font-family:Lato,system-ui,-apple-system,sans-serif;padding-bottom:calc(74px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
 .top{padding:calc(18px + env(safe-area-inset-top,0px)) 16px 14px;background:linear-gradient(180deg,var(--d1),#000 110%)}
 .kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--p2);font-weight:700}
 .big{font-size:30px;font-weight:900;margin:4px 0 2px;line-height:1.1}
 .sub{color:var(--mut);font-size:15px}
+.sub a{color:var(--p2)}
+main{padding:0 12px}
 .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:0 12px 14px}
 .day{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 0 6px;text-align:center;color:var(--mut);font:inherit;cursor:pointer}
 .day small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
@@ -24,7 +26,6 @@ body{margin:0;background:var(--bk);color:var(--tx);font-family:Lato,system-ui,-a
 .day.sel{background:var(--p1);border-color:var(--p1)}
 .day.sel small,.day.sel b{color:#fff}
 .day.sel i{background:#fff}
-main{padding:0 12px}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:6px 14px;margin-bottom:12px}
 .card.pad{padding:14px}
 .sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--p2);font-weight:700;margin:16px 2px 8px}
@@ -32,14 +33,13 @@ main{padding:0 12px}
 .ex:last-child{border-bottom:0}
 .nm{flex:1;min-width:0;background:none;border:0;color:#fff;font:inherit;font-size:16px;font-weight:700;text-align:left;padding:4px 0;cursor:pointer}
 .nm small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
-.nm::after{content:"▶ tap for video";display:block;color:var(--p2);font-size:12px;font-weight:700;margin-top:2px}
+.nm::after{content:"Video";display:inline-block;color:var(--p2);font-size:12px;font-weight:700;margin-top:4px}
 .cb{width:28px;height:28px;border-radius:9px;border:2px solid var(--p1);background:none;flex:none;cursor:pointer;color:#fff;font-size:16px;font-weight:900;padding:0}
 .cb.on{background:var(--p1)}
-.pop{display:none;position:absolute;left:40px;right:0;top:calc(100% - 6px);z-index:6;background:#1d0a10;border:1px solid var(--d2);border-radius:12px;padding:10px;box-shadow:0 10px 30px #000;flex-direction:column;gap:6px}
+.pop{display:none;position:absolute;left:40px;right:0;top:calc(100% - 6px);z-index:6;background:#1d0a10;border:1px solid var(--d2);border-radius:12px;padding:10px;box-shadow:0 10px 30px #000;flex-direction:column}
 .ex.open .pop{display:flex}
 @media(hover:hover){.ex:hover .pop{display:flex}}
 .pop a{background:var(--p1);color:#fff;text-decoration:none;text-align:center;padding:12px;border-radius:10px;font-weight:700}
-.pop small{color:var(--mut);font-size:12px;text-align:center}
 .bars{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .lbl{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
 .val{font-size:22px;font-weight:900;margin:2px 0 6px}
@@ -54,18 +54,27 @@ main{padding:0 12px}
 .mut{color:var(--mut);font-size:13px}
 .btn{background:var(--p1);color:#fff;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer}
 .btn.ghost{background:none;border:1px solid var(--d2)}
+.btn.full{flex:1 1 100%}
 .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px;padding:4px 6px}
-.frm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}
-.frm .f{flex:1 1 110px;min-width:0}
-.frm label{display:block;flex:1 1 45%;font-size:12px;color:var(--mut)}
+.frm{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin:10px 0 4px}
+.frm label{flex:1 1 45%;min-width:0;font-size:12px;color:var(--mut);display:flex;flex-direction:column;gap:4px}
 input,select{background:#000;border:1px solid var(--bd);color:#fff;border-radius:10px;padding:11px;font:inherit;font-size:16px;width:100%}
 input:focus,select:focus{outline:none;border-color:var(--p1)}
 input[type=date]{color-scheme:dark}
+.gap{margin-bottom:8px}
+.meal{display:flex;align-items:center;gap:10px;padding:6px 0}
+.meal span{width:84px;font-size:13px;color:var(--mut)}
+.meal select{flex:1}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px}
+.wkbar{display:flex;align-items:center;gap:10px;padding:14px}
+.wkbar .grow{text-align:center;font-weight:700}
+.hl{color:var(--p2);font-weight:700}
+.diff-up{color:var(--mut)}
+.diff-ok{color:var(--p2);font-weight:700}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0a0306;border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
 nav button{flex:1;padding:12px 2px 14px;border:0;background:none;color:var(--mut);font:inherit;font-size:12px;font-weight:700;cursor:pointer}
 nav button.on{color:var(--p1)}
 nav button.on::before{content:"";display:block;width:24px;height:3px;border-radius:2px;background:var(--p1);margin:0 auto 6px}
-h4{margin:0 0 10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--p2)}
 .empty{color:var(--mut);padding:8px 0;font-size:14px}
 </style>
 </head>
@@ -76,174 +85,293 @@ h4{margin:0 0 10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
   <button data-t="today" class="on" onclick="go('today')">Workout</button>
   <button data-t="food" onclick="go('food')">Food</button>
   <button data-t="weight" onclick="go('weight')">Weight</button>
+  <button data-t="plan" onclick="go('plan')">Plan</button>
   <button data-t="lib" onclick="go('lib')">Library</button>
 </nav>
 <script>
-// ── Data ──
-const KEY='cut-keep-v1';
-const DEFAULT_FOODS=[
- {n:'Chicken breast, cooked',c:165,p:31,u:'100 g'},
- {n:'White rice, cooked',c:205,p:4,u:'1 cup'},
- {n:'Egg, large',c:72,p:6,u:'1'},
- {n:'Fairlife chocolate shake',c:150,p:30,u:'1 bottle (check label)'},
- {n:'Cottage cheese, low-fat',c:180,p:25,u:'1 cup'},
- {n:'Black beans, cooked',c:110,p:7,u:'1/2 cup'}
+const KEY = 'cut-keep-v1';
+const DAY = 864e5;
+
+const DEFAULT_FOODS = [
+  {n:'Chicken breast, cooked', c:165, p:31, u:'100 g'},
+  {n:'White rice, cooked', c:205, p:4, u:'1 cup'},
+  {n:'Egg, large', c:72, p:6, u:'1'},
+  {n:'Fairlife chocolate shake', c:150, p:30, u:'1 bottle (check label)'},
+  {n:'Cottage cheese, low-fat', c:180, p:25, u:'1 cup'},
+  {n:'Black beans, cooked', c:110, p:7, u:'1/2 cup'}
 ];
-const RECIPES=[
- {n:'Chicken rice bowl',c:550,p:45,i:'6 oz chicken, 1 cup rice, frozen veg, hot sauce'},
- {n:'Chicken burrito bowl',c:580,p:45,i:'6 oz chicken, 1 cup rice, 1/2 cup black beans, salsa'},
- {n:'Chicken fried rice',c:560,p:42,i:'6 oz chicken, 1 cup rice, 2 eggs, peas and carrots'},
- {n:'Egg and spinach toast',c:420,p:28,i:'3 eggs + 2 whites, spinach, 1 slice toast'},
- {n:'Chocolate cottage cheese bowl',c:300,p:40,i:'1 cup cottage cheese, berries, 1 scoop chocolate protein'}
+
+const RECIPES = [
+  {n:'Chicken salad wrap', c:380, p:42, i:'5 oz chicken, 1/2 cup nonfat Greek yogurt, celery, mustard, whole-wheat wrap'},
+  {n:'Turkey taco lettuce wraps', c:360, p:40, i:'6 oz 93% lean ground turkey, taco seasoning, lettuce cups, salsa, light cheese'},
+  {n:'Chicken veggie stir fry', c:420, p:45, i:'6 oz chicken, broccoli, peppers, low-sodium soy, 1/2 cup rice'},
+  {n:'Egg white veggie scramble', c:320, p:34, i:'1 cup egg whites + 1 egg, spinach, peppers, mushrooms, 1 slice light toast'},
+  {n:'Cottage cheese protein pancakes', c:340, p:38, i:'1 cup cottage cheese, 2 eggs, 1/2 cup oats, blended, berries'},
+  {n:'Shrimp cauliflower rice bowl', c:360, p:38, i:'6 oz shrimp, cauliflower rice, salsa, 1/4 avocado'},
+  {n:'Chocolate Greek yogurt bowl', c:260, p:35, i:'1 scoop chocolate protein into 1 cup nonfat Greek yogurt, berries, cocoa'},
+  {n:'Turkey chicken chili', c:420, p:48, i:'6 oz chicken, 1/2 cup beans, tomatoes, chili powder, batch-cook'}
 ];
-const PLAN={
- A:{name:'Lift A · Full body',ex:[['Goblet squat','3 x 10'],['Push-ups or bench press','3 x 8-12'],['One-arm dumbbell row','3 x 10 each'],['Dumbbell overhead press','3 x 8-12'],['Plank','3 x 30 sec']]},
- B:{name:'Lift B · Hinge and legs',ex:[['Romanian deadlift','3 x 10'],['Incline or floor press','3 x 10'],['Lat pulldown or band row','3 x 12'],['Walking lunges','3 x 8 each'],['Dead bug','3 x 10 each']]},
- W:{name:'Walk and stretch',ex:[['Brisk walk','30 min'],['Full-body stretch','10 min']]},
- L:{name:'Lunch circuit · 40 min',ex:[['Push-ups','3 rounds x 10'],['Bodyweight squats','3 rounds x 15'],['Reverse lunges','3 rounds x 12 each'],['Plank','3 rounds x 30 sec'],['Brisk walk','5 min']]}
+
+const SLOTS = ['Breakfast', 'Lunch', 'Snack', 'Pre-shift', 'Dinner'];
+const PLAN = {
+  A: {name: 'Lift A · Full body', ex: [['Goblet squat','3 x 10'], ['Push-ups or bench press','3 x 8-12'], ['One-arm dumbbell row','3 x 10 each'], ['Dumbbell overhead press','3 x 8-12'], ['Plank','3 x 30 sec']]},
+  B: {name: 'Lift B · Hinge and legs', ex: [['Romanian deadlift','3 x 10'], ['Incline or floor press','3 x 10'], ['Lat pulldown or band row','3 x 12'], ['Walking lunges','3 x 8 each'], ['Dead bug','3 x 10 each']]},
+  W: {name: 'Walk and stretch', ex: [['Brisk walk','30 min'], ['Full-body stretch','10 min']]},
+  L: {name: 'Lunch circuit · 40 min', ex: [['Push-ups','3 rounds x 10'], ['Bodyweight squats','3 rounds x 15'], ['Reverse lunges','3 rounds x 12 each'], ['Plank','3 rounds x 30 sec'], ['Brisk walk','5 min']]}
 };
-const WK=['W','W','W','A','B','A','W']; // Sun..Sat; Fri is light Lift A
-const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const WEEK = ['W', 'W', 'W', 'A', 'B', 'A', 'W']; // Sun..Sat; Friday is light Lift A
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-let S=load();
-let cur=ymd(new Date());
-let tab='today';
-
-function load(){
- try{const s=JSON.parse(localStorage.getItem(KEY));if(s)return s}catch(e){}
- return {start:255,goal:190,cal:2200,pro:180,weights:[],logs:{},done:{},foods:DEFAULT_FOODS.slice()};
+function defaults() {
+  return {start: 255, goal: 190, cal: 2200, pro: 180, rate: 1.5, startDate: null,
+          weights: [], logs: {}, done: {}, plan: {}, foods: DEFAULT_FOODS.slice()};
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function load() {
+  try { return Object.assign(defaults(), JSON.parse(localStorage.getItem(KEY)) || {}); }
+  catch (e) { return defaults(); }
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+let S = load();
+let cur = ymd(new Date());
+let tab = 'today';
+let pw = null;
 
 // ── Helpers ──
-function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function pd(s){return new Date(s+'T12:00')}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function val(id){return document.getElementById(id).value}
-function go(t){tab=t;render()}
-function setDay(s){cur=s;render()}
-function dayKeys(s){const w=pd(s).getDay();return [WK[w]].concat(w>=3&&w<=5?['L']:[])}
-function totals(d){return (S.logs[d]||[]).reduce((a,x)=>({c:a.c+x.c,p:a.p+x.p}),{c:0,p:0})}
-function bar(v,max){return `<div class="bar"><i style="width:${Math.max(0,Math.min(100,v/max*100))}%"></i></div>`}
+function ymd(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function pd(s) { return new Date(s + 'T12:00'); }
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+}
+function val(id) { return document.getElementById(id).value; }
+function go(t) { tab = t; render(); }
+function setDay(s) { cur = s; render(); }
+function dayKeys(s) { const w = pd(s).getDay(); return [WEEK[w]].concat(w >= 3 && w <= 5 ? ['L'] : []); }
+function totals(d) { return (S.logs[d] || []).reduce((a, x) => ({c: a.c + x.c, p: a.p + x.p}), {c: 0, p: 0}); }
+function bar(v, max) { return `<div class="bar"><i style="width:${Math.max(0, Math.min(100, v / max * 100))}%"></i></div>`; }
+function weeksBetween(a, b) { return (pd(b) - pd(a)) / (7 * DAY); }
 
-function render(){
- document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));
- const d=pd(cur);
- const isToday=cur===ymd(new Date());
- document.getElementById('top').innerHTML=`
-  <div class="kick">${isToday?'Today':DOW[d.getDay()]} · ${d.getFullYear()}</div>
-  <div class="big">${d.toLocaleDateString('en-US',{weekday:'long'})}, ${d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
-  <div class="sub">${esc(PLAN[WK[d.getDay()]].name)}${d.getDay()===5?' · light weights':''}${isToday?'':` · <a href="#" onclick="setDay(ymd(new Date()));return false" style="color:var(--p2)">Back to today</a>`}</div>`;
- const views={today:vToday,food:vFood,weight:vWeight,lib:vLib};
- document.getElementById('main').innerHTML=(tab==='today'?weekStrip():'')+views[tab]();
+function render() {
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.t === tab));
+  const d = pd(cur), isToday = cur === ymd(new Date());
+  document.getElementById('top').innerHTML = `
+    <div class="kick">${isToday ? 'Today' : DOW[d.getDay()]} · ${d.getFullYear()}</div>
+    <div class="big">${d.toLocaleDateString('en-US', {weekday: 'long'})}, ${d.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})}</div>
+    <div class="sub">${esc(PLAN[WEEK[d.getDay()]].name)}${d.getDay() === 5 ? ' · light weights' : ''}${isToday ? '' : ` · <a href="#" onclick="setDay(ymd(new Date()));return false">Today</a>`}</div>`;
+  const views = {today: vWorkout, food: vFood, weight: vWeight, plan: vPlan, lib: vLib};
+  document.getElementById('main').innerHTML = (tab === 'today' ? weekStrip() : '') + views[tab]();
 }
 
-function weekStrip(){
- const d=pd(cur), start=new Date(d); start.setDate(d.getDate()-d.getDay());
- let h='<div class="week">';
- for(let i=0;i<7;i++){
-  const x=new Date(start); x.setDate(start.getDate()+i); const s=ymd(x);
-  const has=dayKeys(s).some(k=>k!=='W');
-  h+=`<button class="day ${s===cur?'sel':''} ${has?'has':''}" onclick="setDay('${s}')"><small>${DOW[i]}</small><b>${x.getDate()}</b><i></i></button>`;
- }
- return h+'</div>';
+function weekStrip() {
+  const d = pd(cur), start = new Date(d);
+  start.setDate(d.getDate() - d.getDay());
+  let h = '<div class="week">';
+  for (let i = 0; i < 7; i++) {
+    const x = new Date(start);
+    x.setDate(start.getDate() + i);
+    const s = ymd(x), has = dayKeys(s).some(k => k !== 'W');
+    h += `<button class="day ${s === cur ? 'sel' : ''} ${has ? 'has' : ''}" onclick="setDay('${s}')"><small>${DOW[i]}</small><b>${x.getDate()}</b><i></i></button>`;
+  }
+  return h + '</div>';
 }
 
 // ── Workout ──
-function vToday(){
- const keys=dayKeys(cur);
- let h='', last='', done=0, total=0;
- keys.forEach(k=>{
-  h+=`<div class="sec">${esc(PLAN[k].name)}</div><div class="card">`;
-  PLAN[k].ex.forEach(e=>{
-   const key=cur+'|'+k+'|'+e[0]; total++;
-   if(S.done[key])done++;
-   const q=encodeURIComponent(e[0]+' proper form tutorial');
-   h+=`<div class="ex" onclick="if(!event.target.closest('.cb'))this.classList.toggle('open')">
-     <button class="cb ${S.done[key]?'on':''}" data-k="${esc(key)}" onclick="tog(this.dataset.k)">${S.done[key]?'✓':''}</button>
-     <button class="nm">${esc(e[0])}<small>${esc(e[1])}</small></button>
-     <div class="pop"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">▶ Watch video</a><small>Opens YouTube in a new tab</small></div>
-   </div>`;
+function vWorkout() {
+  const keys = dayKeys(cur);
+  let h = '', done = 0, total = 0;
+  keys.forEach(k => {
+    h += `<div class="sec">${esc(PLAN[k].name)}</div><div class="card">`;
+    PLAN[k].ex.forEach(e => {
+      const key = cur + '|' + k + '|' + e[0];
+      total++;
+      if (S.done[key]) done++;
+      const q = encodeURIComponent(e[0] + ' proper form tutorial');
+      h += `<div class="ex" onclick="if(!event.target.closest('.cb'))this.classList.toggle('open')">
+        <button class="cb ${S.done[key] ? 'on' : ''}" data-k="${esc(key)}" onclick="tog(this.dataset.k)">${S.done[key] ? '✓' : ''}</button>
+        <button class="nm">${esc(e[0])}<small>${esc(e[1])}</small></button>
+        <div class="pop"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">Watch video</a></div>
+      </div>`;
+    });
+    h += '</div>';
   });
-  h+='</div>';
- });
- const t=totals(cur);
- h+=`<div class="sec">Today's numbers</div><div class="card pad"><div class="bars">
-  <div><div class="lbl">Calories</div><div class="val">${t.c}<span class="mut"> / ${S.cal}</span></div>${bar(t.c,S.cal)}</div>
-  <div><div class="lbl">Protein</div><div class="val">${t.p}<span class="mut"> / ${S.pro}g</span></div>${bar(t.p,S.pro)}</div>
- </div><div class="mut" style="margin-top:12px">Workout: ${done} of ${total} done</div></div>`;
- return h;
+  const t = totals(cur);
+  h += `<div class="sec">Today</div><div class="card pad"><div class="bars">
+    <div><div class="lbl">Calories</div><div class="val">${t.c}<span class="mut"> / ${S.cal}</span></div>${bar(t.c, S.cal)}</div>
+    <div><div class="lbl">Protein</div><div class="val">${t.p}<span class="mut"> / ${S.pro}g</span></div>${bar(t.p, S.pro)}</div>
+  </div><div class="mut" style="margin-top:12px">Workout: ${done} of ${total} done</div></div>`;
+  return h;
 }
-function tog(k){if(S.done[k])delete S.done[k];else S.done[k]=1;save();render()}
+function tog(k) { if (S.done[k]) delete S.done[k]; else S.done[k] = 1; save(); render(); }
 
-// ── Food ──
-function vFood(){
- const L=S.logs[cur]||[], t=totals(cur);
- let h=`<div class="sec">Logged</div><div class="card">`;
- if(!L.length)h+=`<div class="empty">Nothing logged for this day.</div>`;
- L.forEach((x,i)=>h+=`<div class="row"><div class="grow">${esc(x.n)}<div class="mut">${x.c} cal · ${x.p}g protein</div></div><button class="x" onclick="delLog(${i})">✕</button></div>`);
- h+=`<div class="row" style="font-weight:700"><div class="grow">Total</div><div>${t.c} cal · ${t.p}g</div></div></div>`;
- h+=`<div class="sec">Add from library</div><div class="card pad">
-  <select id="fsel">${S.foods.map((f,i)=>`<option value="${i}">${esc(f.n)} · ${f.c} cal · ${f.p}g</option>`).join('')}</select>
-  <div class="frm"><label>Servings<input id="fq" type="number" step="0.5" min="0.5" value="1"></label>
-  <button class="btn" style="flex:1 1 40%" onclick="addFromLib()">Add to log</button></div></div>`;
- h+=`<div class="sec">Custom entry</div><div class="card pad">
-  <input id="cn" placeholder="Name" style="margin-bottom:8px">
-  <div class="frm"><label>Calories<input id="cc" type="number"></label><label>Protein g<input id="cp" type="number"></label>
-  <button class="btn" style="flex:1 1 100%" onclick="addCustom()">Add to log</button></div></div>`;
- return h;
+// ── Food log ──
+function vFood() {
+  const L = S.logs[cur] || [], t = totals(cur);
+  let h = '<div class="sec">Logged</div><div class="card">';
+  if (!L.length) h += '<div class="empty">Nothing logged for this day.</div>';
+  L.forEach((x, i) => h += `<div class="row"><div class="grow">${esc(x.n)}<div class="mut">${x.c} cal · ${x.p}g protein</div></div><button class="x" onclick="delLog(${i})">✕</button></div>`);
+  h += `<div class="row" style="font-weight:700"><div class="grow">Total</div><div>${t.c} cal · ${t.p}g</div></div></div>`;
+  h += `<div class="sec">Add from library</div><div class="card pad">
+    <select id="fsel" class="gap">${S.foods.map((f, i) => `<option value="${i}">${esc(f.n)} · ${f.c} cal · ${f.p}g</option>`).join('')}</select>
+    <div class="frm"><label>Servings<input id="fq" type="number" step="0.5" min="0.5" value="1"></label>
+    <button class="btn" onclick="addFromLib()">Add</button></div></div>`;
+  h += `<div class="sec">Custom entry</div><div class="card pad">
+    <input id="cn" placeholder="Name" class="gap">
+    <div class="frm"><label>Calories<input id="cc" type="number"></label><label>Protein g<input id="cp" type="number"></label>
+    <button class="btn full" onclick="addCustom()">Add</button></div></div>`;
+  return h;
 }
-function addLog(n,c,p){S.logs[cur]=S.logs[cur]||[];S.logs[cur].push({n,c:Math.round(c),p:Math.round(p)});save();render()}
-function addFromLib(){const f=S.foods[+val('fsel')],q=+val('fq')||1;addLog(f.n+(q!==1?' x'+q:''),f.c*q,f.p*q)}
-function addCustom(){addLog(val('cn').trim()||'Custom',+val('cc')||0,+val('cp')||0)}
-function delLog(i){S.logs[cur].splice(i,1);save();render()}
+function addLog(n, c, p) {
+  S.logs[cur] = S.logs[cur] || [];
+  S.logs[cur].push({n, c: Math.round(c), p: Math.round(p)});
+  save(); render();
+}
+function addFromLib() { const f = S.foods[+val('fsel')], q = +val('fq') || 1; addLog(f.n + (q !== 1 ? ' x' + q : ''), f.c * q, f.p * q); }
+function addCustom() { addLog(val('cn').trim() || 'Custom', +val('cc') || 0, +val('cp') || 0); }
+function delLog(i) { S.logs[cur].splice(i, 1); save(); render(); }
 
-// ── Weight ──
-function vWeight(){
- S.weights.sort((a,b)=>a.d<b.d?-1:1);
- const W=S.weights, cw=W.length?W[W.length-1].w:S.start;
- const lost=S.start-cw, span=S.start-S.goal, togo=cw-S.goal;
- const l7=W.slice(-7), avg=l7.length?(l7.reduce((a,x)=>a+x.w,0)/l7.length).toFixed(1):'–';
- let h=`<div class="sec">Progress</div><div class="card pad"><div class="stats">
-  <div>Start<b>${S.start}</b></div><div>Current<b>${cw}</b></div>
-  <div>Lost<b>${lost.toFixed(1)}</b></div><div>To goal<b>${togo.toFixed(1)}</b></div>
-  <div>7-day avg<b>${avg}</b></div><div>Goal<b>${S.goal}</b></div></div>
-  <div style="margin-top:14px">${bar(lost,span)}</div>
-  <div class="mut" style="margin-top:8px">${Math.max(0,Math.min(100,lost/span*100)).toFixed(0)}% of the way there. Watch the 7-day average.</div></div>`;
- h+=`<div class="sec">Log weight</div><div class="card pad"><div class="frm">
-  <label>Date<input id="wd" type="date" value="${cur}"></label>
-  <label>Pounds<input id="ww" type="number" step="0.1" inputmode="decimal"></label>
-  <button class="btn" style="flex:1 1 100%" onclick="addWeight()">Save weight</button></div></div>`;
- h+=`<div class="sec">History</div><div class="card">`;
- const rec=W.map((x,i)=>({...x,i})).reverse().slice(0,30);
- if(!rec.length)h+=`<div class="empty">No weigh-ins yet.</div>`;
- rec.forEach(x=>h+=`<div class="row"><div class="grow">${x.d}</div><b>${x.w} lbs</b><button class="x" onclick="delW(${x.i})">✕</button></div>`);
- return h+'</div>';
+// ── Weight and forecast ──
+function startDate() { return S.startDate || (S.weights[0] && S.weights[0].d) || ymd(new Date()); }
+function avg7() {
+  const l = S.weights.slice(-7);
+  return l.length ? l.reduce((a, x) => a + x.w, 0) / l.length : null;
 }
-function addWeight(){const d=val('wd'),w=+val('ww');if(!d||!w)return;S.weights.push({d,w});save();render()}
-function delW(i){S.weights.splice(i,1);save();render()}
+function planWeight(d) {
+  return Math.max(S.goal, S.start - S.rate * Math.max(0, weeksBetween(startDate(), d)));
+}
+function paceWeight(d) {
+  const avg = avg7(), weeks = weeksBetween(startDate(), ymd(new Date()));
+  if (avg === null || weeks <= 0) return null;
+  const pace = (S.start - avg) / weeks;
+  return Math.max(S.goal, S.start - pace * Math.max(0, weeksBetween(startDate(), d)));
+}
+
+function vWeight() {
+  S.weights.sort((a, b) => a.d < b.d ? -1 : 1);
+  const W = S.weights, cur_w = W.length ? W[W.length - 1].w : S.start;
+  const lost = S.start - cur_w, span = S.start - S.goal, avg = avg7();
+  const check = val('ck') || ymd(new Date(Date.now() + 30 * DAY));
+  const pl = planWeight(check), pc = paceWeight(check);
+  const diffNow = avg !== null ? avg - planWeight(ymd(new Date())) : null;
+
+  let h = `<div class="sec">Summary</div><div class="card pad"><div class="stats">
+    <div>Start<b>${S.start}</b></div><div>Current<b>${cur_w}</b></div>
+    <div>Lost<b>${lost.toFixed(1)}</b></div><div>To goal<b>${(cur_w - S.goal).toFixed(1)}</b></div>
+    <div>7-day avg<b>${avg === null ? '–' : avg.toFixed(1)}</b></div><div>Goal<b>${S.goal}</b></div></div>
+    <div style="margin-top:14px">${bar(lost, span)}</div></div>`;
+
+  h += `<div class="sec">Forecast</div><div class="card pad">
+    <div class="frm"><label>Check date<input id="ck" type="date" value="${check}" onchange="render()"></label></div>
+    <div class="stats" style="margin-top:12px">
+      <div>Plan weight<b>${pl.toFixed(1)}</b><span class="mut">loss ${(S.start - pl).toFixed(1)} lbs</span></div>
+      <div>Pace weight<b>${pc === null ? '–' : pc.toFixed(1)}</b><span class="mut">${pc === null ? 'needs 1+ weigh-in' : 'loss ' + (S.start - pc).toFixed(1) + ' lbs'}</span></div>
+      <div>Actual avg<b>${avg === null ? '–' : avg.toFixed(1)}</b><span class="mut">last 7 entries</span></div>
+      <div>Actual now<b>${cur_w}</b><span class="mut">${diffNow === null ? '' : (diffNow > 0 ? '+' : '') + diffNow.toFixed(1) + ' vs plan'}</span></div>
+    </div>
+    <div class="mut" style="margin-top:12px">Plan uses ${S.rate} lbs/week from ${startDate()}. Pace weight extends your average loss rate to the check date.</div>
+  </div>`;
+
+  h += `<div class="sec">Log weight</div><div class="card pad"><div class="frm">
+    <label>Date<input id="wd" type="date" value="${cur}"></label>
+    <label>Pounds<input id="ww" type="number" step="0.1" inputmode="decimal"></label>
+    <button class="btn full" onclick="addWeight()">Save</button></div></div>`;
+
+  h += '<div class="sec">History</div><div class="card">';
+  const rec = W.map((x, i) => ({...x, i})).reverse().slice(0, 30);
+  if (!rec.length) h += '<div class="empty">No weigh-ins yet.</div>';
+  rec.forEach(x => h += `<div class="row"><div class="grow">${x.d}</div><b>${x.w} lbs</b><button class="x" onclick="delW(${x.i})">✕</button></div>`);
+  return h + '</div>';
+}
+function addWeight() {
+  const d = val('wd'), w = +val('ww');
+  if (!d || !w) return;
+  S.weights.push({d, w});
+  save(); render();
+}
+function delW(i) { S.weights.splice(i, 1); save(); render(); }
+
+// ── Meal plan ──
+function weekStart(s) { const d = pd(s); d.setDate(d.getDate() - d.getDay()); return ymd(d); }
+function shiftWeek(n) { const d = pd(pw || weekStart(cur)); d.setDate(d.getDate() + 7 * n); pw = ymd(d); render(); }
+function items() { return RECIPES.concat(S.foods); }
+function setSlot(date, slot, idx) {
+  S.plan[date] = S.plan[date] || {};
+  if (idx < 0) delete S.plan[date][slot];
+  else { const it = items()[idx]; S.plan[date][slot] = {n: it.n, c: it.c, p: it.p}; }
+  save(); render();
+}
+function logPlan(date) {
+  const P = S.plan[date] || {};
+  S.logs[date] = S.logs[date] || [];
+  SLOTS.forEach(s => { if (P[s]) S.logs[date].push({n: P[s].n, c: P[s].c, p: P[s].p}); });
+  save(); cur = date; go('food');
+}
+function vPlan() {
+  const sd = pd(pw || weekStart(cur)), ed = new Date(sd);
+  ed.setDate(sd.getDate() + 6);
+  const lab = d => d.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
+  let h = `<div class="card wkbar"><button class="btn ghost" onclick="shiftWeek(-1)">‹</button>
+    <div class="grow">${lab(sd)} – ${lab(ed)}</div><button class="btn ghost" onclick="shiftWeek(1)">›</button></div>`;
+  const list = items();
+  for (let i = 0; i < 7; i++) {
+    const x = new Date(sd);
+    x.setDate(sd.getDate() + i);
+    const s = ymd(x), P = S.plan[s] || {};
+    let t = {c: 0, p: 0};
+    SLOTS.forEach(sl => { if (P[sl]) { t.c += P[sl].c; t.p += P[sl].p; } });
+    h += `<div class="sec">${x.toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric'})}${s === ymd(new Date()) ? ' · Today' : ''}</div><div class="card pad">`;
+    SLOTS.forEach(sl => {
+      const sel = P[sl] ? list.findIndex(it => it.n === P[sl].n) : -1;
+      h += `<div class="meal"><span>${sl}</span><select onchange="setSlot('${s}','${sl}',+this.value)">
+        <option value="-1">None</option>${list.map((it, j) => `<option value="${j}" ${j === sel ? 'selected' : ''}>${esc(it.n)} · ${it.c} cal · ${it.p}g</option>`).join('')}
+      </select></div>`;
+    });
+    h += `<div class="foot"><div class="mut">${t.c} cal · ${t.p}g protein${t.p >= S.pro ? ' ✓' : ''}</div>
+      <button class="btn ghost" onclick="logPlan('${s}')">Log day</button></div></div>`;
+  }
+  return h;
+}
 
 // ── Library ──
-function vLib(){
- let h=`<div class="sec">Foods</div><div class="card">`;
- S.foods.forEach((f,i)=>h+=`<div class="row"><div class="grow">${esc(f.n)}<div class="mut">${esc(f.u||'')} · ${f.c} cal · ${f.p}g protein</div></div><button class="x" onclick="delFood(${i})">✕</button></div>`);
- h+=`</div><div class="card pad"><input id="fn" placeholder="Food name" style="margin-bottom:8px">
-  <div class="frm"><label>Calories<input id="fc" type="number"></label><label>Protein g<input id="fpp" type="number"></label>
-  <label>Unit<input id="fu" placeholder="1 cup"></label><button class="btn" style="flex:1 1 100%" onclick="addFood()">Add food</button></div></div>`;
- h+=`<div class="sec">Recipes</div><div class="card">`;
- RECIPES.forEach((r,i)=>h+=`<div class="row"><div class="grow"><b>${esc(r.n)}</b><div class="mut">${r.c} cal · ${r.p}g protein</div><div class="mut">${esc(r.i)}</div></div><button class="btn" onclick="logRecipe(${i})">Log</button></div>`);
- h+=`</div><div class="sec">Targets</div><div class="card pad"><div class="frm">
-  <label>Calories/day<input id="tc" type="number" value="${S.cal}"></label>
-  <label>Protein g/day<input id="tp" type="number" value="${S.pro}"></label>
-  <label>Start lbs<input id="ts" type="number" value="${S.start}"></label>
-  <label>Goal lbs<input id="tg" type="number" value="${S.goal}"></label>
-  <button class="btn" style="flex:1 1 100%" onclick="saveTargets()">Save targets</button></div></div>`;
- return h;
+function vLib() {
+  let h = '<div class="sec">Foods</div><div class="card">';
+  S.foods.forEach((f, i) => h += `<div class="row"><div class="grow">${esc(f.n)}<div class="mut">${esc(f.u || '')} · ${f.c} cal · ${f.p}g protein</div></div><button class="x" onclick="delFood(${i})">✕</button></div>`);
+  h += `</div><div class="card pad"><input id="fn" placeholder="Food name" class="gap">
+    <div class="frm"><label>Calories<input id="fc" type="number"></label><label>Protein g<input id="fpp" type="number"></label>
+    <label>Unit<input id="fu" placeholder="1 cup"></label><button class="btn full" onclick="addFood()">Add food</button></div></div>`;
+  h += '<div class="sec">Recipes</div><div class="card">';
+  RECIPES.forEach((r, i) => h += `<div class="row"><div class="grow"><b>${esc(r.n)}</b><div class="mut">${r.c} cal · ${r.p}g protein</div>
+    <div class="mut">${esc(r.i)}</div>
+    <a target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(r.n + ' high protein recipe')}" class="hl" style="font-size:13px">Find recipe</a></div>
+    <button class="btn" onclick="logRecipe(${i})">Log</button></div>`);
+  h += `</div><div class="sec">Targets</div><div class="card pad"><div class="frm">
+    <label>Calories/day<input id="tc" type="number" value="${S.cal}"></label>
+    <label>Protein g/day<input id="tp" type="number" value="${S.pro}"></label>
+    <label>Start lbs<input id="ts" type="number" value="${S.start}"></label>
+    <label>Goal lbs<input id="tg" type="number" value="${S.goal}"></label>
+    <label>Plan loss per week<input id="tr" type="number" step="0.1" value="${S.rate}"></label>
+    <label>Start date<input id="tsd" type="date" value="${startDate()}"></label>
+    <button class="btn full" onclick="saveTargets()">Save</button></div></div>`;
+  return h;
 }
-function addFood(){const n=val('fn').trim();if(!n)return;S.foods.push({n,c:+val('fc')||0,p:+val('fpp')||0,u:val('fu')});save();render()}
-function delFood(i){S.foods.splice(i,1);save();render()}
-function logRecipe(i){const r=RECIPES[i];addLog(r.n,r.c,r.p);go('food')}
-function saveTargets(){S.cal=+val('tc')||S.cal;S.pro=+val('tp')||S.pro;S.start=+val('ts')||S.start;S.goal=+val('tg')||S.goal;save();render()}
+function addFood() {
+  const n = val('fn').trim();
+  if (!n) return;
+  S.foods.push({n, c: +val('fc') || 0, p: +val('fpp') || 0, u: val('fu')});
+  save(); render();
+}
+function delFood(i) { S.foods.splice(i, 1); save(); render(); }
+function logRecipe(i) { const r = RECIPES[i]; addLog(r.n, r.c, r.p); go('food'); }
+function saveTargets() {
+  S.cal = +val('tc') || S.cal;
+  S.pro = +val('tp') || S.pro;
+  S.start = +val('ts') || S.start;
+  S.goal = +val('tg') || S.goal;
+  S.rate = +val('tr') || S.rate;
+  S.startDate = val('tsd') || S.startDate;
+  save(); render();
+}
 
 render();
 </script>
