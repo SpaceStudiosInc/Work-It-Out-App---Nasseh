@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Cut and Keep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bk:#000;--d1:#82233c;--d2:#b93d5c;--p1:#ed5279;--p2:#f57a96;--card:#120508;--bd:#2e111b;--tx:#fff;--mut:#c9a3ad}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bk);color:var(--tx);font-family:Lato,system-ui,-apple-system,sans-serif;padding-bottom:calc(74px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased}
+.top{padding:calc(18px + env(safe-area-inset-top,0px)) 16px 14px;background:linear-gradient(180deg,var(--d1),#000 110%)}
+.kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--p2);font-weight:700}
+.big{font-size:30px;font-weight:900;margin:4px 0 2px;line-height:1.1}
+.sub{color:var(--mut);font-size:15px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;padding:0 12px 14px}
+.day{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px 0 6px;text-align:center;color:var(--mut);font:inherit;cursor:pointer}
+.day small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.day b{display:block;font-size:17px;color:#fff;margin-top:2px}
+.day i{display:block;width:6px;height:6px;border-radius:3px;background:var(--p1);margin:5px auto 0;visibility:hidden}
+.day.has i{visibility:visible}
+.day.sel{background:var(--p1);border-color:var(--p1)}
+.day.sel small,.day.sel b{color:#fff}
+.day.sel i{background:#fff}
+main{padding:0 12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:6px 14px;margin-bottom:12px}
+.card.pad{padding:14px}
+.sec{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--p2);font-weight:700;margin:16px 2px 8px}
+.ex{position:relative;display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)}
+.ex:last-child{border-bottom:0}
+.nm{flex:1;min-width:0;background:none;border:0;color:#fff;font:inherit;font-size:16px;font-weight:700;text-align:left;padding:4px 0;cursor:pointer}
+.nm small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
+.nm::after{content:"▶ tap for video";display:block;color:var(--p2);font-size:12px;font-weight:700;margin-top:2px}
+.cb{width:28px;height:28px;border-radius:9px;border:2px solid var(--p1);background:none;flex:none;cursor:pointer;color:#fff;font-size:16px;font-weight:900;padding:0}
+.cb.on{background:var(--p1)}
+.pop{display:none;position:absolute;left:40px;right:0;top:calc(100% - 6px);z-index:6;background:#1d0a10;border:1px solid var(--d2);border-radius:12px;padding:10px;box-shadow:0 10px 30px #000;flex-direction:column;gap:6px}
+.ex.open .pop{display:flex}
+@media(hover:hover){.ex:hover .pop{display:flex}}
+.pop a{background:var(--p1);color:#fff;text-decoration:none;text-align:center;padding:12px;border-radius:10px;font-weight:700}
+.pop small{color:var(--mut);font-size:12px;text-align:center}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lbl{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+.val{font-size:22px;font-weight:900;margin:2px 0 6px}
+.bar{height:8px;background:var(--bd);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--d2),var(--p1))}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stats div{background:#000;border:1px solid var(--bd);border-radius:12px;padding:12px}
+.stats b{display:block;font-size:22px;font-weight:900}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
+.row:last-child{border-bottom:0}
+.grow{flex:1;min-width:0}
+.mut{color:var(--mut);font-size:13px}
+.btn{background:var(--p1);color:#fff;border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer}
+.btn.ghost{background:none;border:1px solid var(--d2)}
+.x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px;padding:4px 6px}
+.frm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}
+.frm .f{flex:1 1 110px;min-width:0}
+.frm label{display:block;flex:1 1 45%;font-size:12px;color:var(--mut)}
+input,select{background:#000;border:1px solid var(--bd);color:#fff;border-radius:10px;padding:11px;font:inherit;font-size:16px;width:100%}
+input:focus,select:focus{outline:none;border-color:var(--p1)}
+input[type=date]{color-scheme:dark}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0a0306;border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+nav button{flex:1;padding:12px 2px 14px;border:0;background:none;color:var(--mut);font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+nav button.on{color:var(--p1)}
+nav button.on::before{content:"";display:block;width:24px;height:3px;border-radius:2px;background:var(--p1);margin:0 auto 6px}
+h4{margin:0 0 10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--p2)}
+.empty{color:var(--mut);padding:8px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="top" id="top"></div>
+<main id="main"></main>
+<nav>
+  <button data-t="today" class="on" onclick="go('today')">Workout</button>
+  <button data-t="food" onclick="go('food')">Food</button>
+  <button data-t="weight" onclick="go('weight')">Weight</button>
+  <button data-t="lib" onclick="go('lib')">Library</button>
+</nav>
+<script>
+// ── Data ──
+const KEY='cut-keep-v1';
+const DEFAULT_FOODS=[
+ {n:'Chicken breast, cooked',c:165,p:31,u:'100 g'},
+ {n:'White rice, cooked',c:205,p:4,u:'1 cup'},
+ {n:'Egg, large',c:72,p:6,u:'1'},
+ {n:'Fairlife chocolate shake',c:150,p:30,u:'1 bottle (check label)'},
+ {n:'Cottage cheese, low-fat',c:180,p:25,u:'1 cup'},
+ {n:'Black beans, cooked',c:110,p:7,u:'1/2 cup'}
+];
+const RECIPES=[
+ {n:'Chicken rice bowl',c:550,p:45,i:'6 oz chicken, 1 cup rice, frozen veg, hot sauce'},
+ {n:'Chicken burrito bowl',c:580,p:45,i:'6 oz chicken, 1 cup rice, 1/2 cup black beans, salsa'},
+ {n:'Chicken fried rice',c:560,p:42,i:'6 oz chicken, 1 cup rice, 2 eggs, peas and carrots'},
+ {n:'Egg and spinach toast',c:420,p:28,i:'3 eggs + 2 whites, spinach, 1 slice toast'},
+ {n:'Chocolate cottage cheese bowl',c:300,p:40,i:'1 cup cottage cheese, berries, 1 scoop chocolate protein'}
+];
+const PLAN={
+ A:{name:'Lift A · Full body',ex:[['Goblet squat','3 x 10'],['Push-ups or bench press','3 x 8-12'],['One-arm dumbbell row','3 x 10 each'],['Dumbbell overhead press','3 x 8-12'],['Plank','3 x 30 sec']]},
+ B:{name:'Lift B · Hinge and legs',ex:[['Romanian deadlift','3 x 10'],['Incline or floor press','3 x 10'],['Lat pulldown or band row','3 x 12'],['Walking lunges','3 x 8 each'],['Dead bug','3 x 10 each']]},
+ W:{name:'Walk and stretch',ex:[['Brisk walk','30 min'],['Full-body stretch','10 min']]},
+ L:{name:'Lunch circuit · 40 min',ex:[['Push-ups','3 rounds x 10'],['Bodyweight squats','3 rounds x 15'],['Reverse lunges','3 rounds x 12 each'],['Plank','3 rounds x 30 sec'],['Brisk walk','5 min']]}
+};
+const WK=['W','W','W','A','B','A','W']; // Sun..Sat; Fri is light Lift A
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+let S=load();
+let cur=ymd(new Date());
+let tab='today';
+
+function load(){
+ try{const s=JSON.parse(localStorage.getItem(KEY));if(s)return s}catch(e){}
+ return {start:255,goal:190,cal:2200,pro:180,weights:[],logs:{},done:{},foods:DEFAULT_FOODS.slice()};
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+// ── Helpers ──
+function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function pd(s){return new Date(s+'T12:00')}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function val(id){return document.getElementById(id).value}
+function go(t){tab=t;render()}
+function setDay(s){cur=s;render()}
+function dayKeys(s){const w=pd(s).getDay();return [WK[w]].concat(w>=3&&w<=5?['L']:[])}
+function totals(d){return (S.logs[d]||[]).reduce((a,x)=>({c:a.c+x.c,p:a.p+x.p}),{c:0,p:0})}
+function bar(v,max){return `<div class="bar"><i style="width:${Math.max(0,Math.min(100,v/max*100))}%"></i></div>`}
+
+function render(){
+ document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===tab));
+ const d=pd(cur);
+ const isToday=cur===ymd(new Date());
+ document.getElementById('top').innerHTML=`
+  <div class="kick">${isToday?'Today':DOW[d.getDay()]} · ${d.getFullYear()}</div>
+  <div class="big">${d.toLocaleDateString('en-US',{weekday:'long'})}, ${d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
+  <div class="sub">${esc(PLAN[WK[d.getDay()]].name)}${d.getDay()===5?' · light weights':''}${isToday?'':` · <a href="#" onclick="setDay(ymd(new Date()));return false" style="color:var(--p2)">Back to today</a>`}</div>`;
+ const views={today:vToday,food:vFood,weight:vWeight,lib:vLib};
+ document.getElementById('main').innerHTML=(tab==='today'?weekStrip():'')+views[tab]();
+}
+
+function weekStrip(){
+ const d=pd(cur), start=new Date(d); start.setDate(d.getDate()-d.getDay());
+ let h='<div class="week">';
+ for(let i=0;i<7;i++){
+  const x=new Date(start); x.setDate(start.getDate()+i); const s=ymd(x);
+  const has=dayKeys(s).some(k=>k!=='W');
+  h+=`<button class="day ${s===cur?'sel':''} ${has?'has':''}" onclick="setDay('${s}')"><small>${DOW[i]}</small><b>${x.getDate()}</b><i></i></button>`;
+ }
+ return h+'</div>';
+}
+
+// ── Workout ──
+function vToday(){
+ const keys=dayKeys(cur);
+ let h='', last='', done=0, total=0;
+ keys.forEach(k=>{
+  h+=`<div class="sec">${esc(PLAN[k].name)}</div><div class="card">`;
+  PLAN[k].ex.forEach(e=>{
+   const key=cur+'|'+k+'|'+e[0]; total++;
+   if(S.done[key])done++;
+   const q=encodeURIComponent(e[0]+' proper form tutorial');
+   h+=`<div class="ex" onclick="if(!event.target.closest('.cb'))this.classList.toggle('open')">
+     <button class="cb ${S.done[key]?'on':''}" data-k="${esc(key)}" onclick="tog(this.dataset.k)">${S.done[key]?'✓':''}</button>
+     <button class="nm">${esc(e[0])}<small>${esc(e[1])}</small></button>
+     <div class="pop"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">▶ Watch video</a><small>Opens YouTube in a new tab</small></div>
+   </div>`;
+  });
+  h+='</div>';
+ });
+ const t=totals(cur);
+ h+=`<div class="sec">Today's numbers</div><div class="card pad"><div class="bars">
+  <div><div class="lbl">Calories</div><div class="val">${t.c}<span class="mut"> / ${S.cal}</span></div>${bar(t.c,S.cal)}</div>
+  <div><div class="lbl">Protein</div><div class="val">${t.p}<span class="mut"> / ${S.pro}g</span></div>${bar(t.p,S.pro)}</div>
+ </div><div class="mut" style="margin-top:12px">Workout: ${done} of ${total} done</div></div>`;
+ return h;
+}
+function tog(k){if(S.done[k])delete S.done[k];else S.done[k]=1;save();render()}
+
+// ── Food ──
+function vFood(){
+ const L=S.logs[cur]||[], t=totals(cur);
+ let h=`<div class="sec">Logged</div><div class="card">`;
+ if(!L.length)h+=`<div class="empty">Nothing logged for this day.</div>`;
+ L.forEach((x,i)=>h+=`<div class="row"><div class="grow">${esc(x.n)}<div class="mut">${x.c} cal · ${x.p}g protein</div></div><button class="x" onclick="delLog(${i})">✕</button></div>`);
+ h+=`<div class="row" style="font-weight:700"><div class="grow">Total</div><div>${t.c} cal · ${t.p}g</div></div></div>`;
+ h+=`<div class="sec">Add from library</div><div class="card pad">
+  <select id="fsel">${S.foods.map((f,i)=>`<option value="${i}">${esc(f.n)} · ${f.c} cal · ${f.p}g</option>`).join('')}</select>
+  <div class="frm"><label>Servings<input id="fq" type="number" step="0.5" min="0.5" value="1"></label>
+  <button class="btn" style="flex:1 1 40%" onclick="addFromLib()">Add to log</button></div></div>`;
+ h+=`<div class="sec">Custom entry</div><div class="card pad">
+  <input id="cn" placeholder="Name" style="margin-bottom:8px">
+  <div class="frm"><label>Calories<input id="cc" type="number"></label><label>Protein g<input id="cp" type="number"></label>
+  <button class="btn" style="flex:1 1 100%" onclick="addCustom()">Add to log</button></div></div>`;
+ return h;
+}
+function addLog(n,c,p){S.logs[cur]=S.logs[cur]||[];S.logs[cur].push({n,c:Math.round(c),p:Math.round(p)});save();render()}
+function addFromLib(){const f=S.foods[+val('fsel')],q=+val('fq')||1;addLog(f.n+(q!==1?' x'+q:''),f.c*q,f.p*q)}
+function addCustom(){addLog(val('cn').trim()||'Custom',+val('cc')||0,+val('cp')||0)}
+function delLog(i){S.logs[cur].splice(i,1);save();render()}
+
+// ── Weight ──
+function vWeight(){
+ S.weights.sort((a,b)=>a.d<b.d?-1:1);
+ const W=S.weights, cw=W.length?W[W.length-1].w:S.start;
+ const lost=S.start-cw, span=S.start-S.goal, togo=cw-S.goal;
+ const l7=W.slice(-7), avg=l7.length?(l7.reduce((a,x)=>a+x.w,0)/l7.length).toFixed(1):'–';
+ let h=`<div class="sec">Progress</div><div class="card pad"><div class="stats">
+  <div>Start<b>${S.start}</b></div><div>Current<b>${cw}</b></div>
+  <div>Lost<b>${lost.toFixed(1)}</b></div><div>To goal<b>${togo.toFixed(1)}</b></div>
+  <div>7-day avg<b>${avg}</b></div><div>Goal<b>${S.goal}</b></div></div>
+  <div style="margin-top:14px">${bar(lost,span)}</div>
+  <div class="mut" style="margin-top:8px">${Math.max(0,Math.min(100,lost/span*100)).toFixed(0)}% of the way there. Watch the 7-day average.</div></div>`;
+ h+=`<div class="sec">Log weight</div><div class="card pad"><div class="frm">
+  <label>Date<input id="wd" type="date" value="${cur}"></label>
+  <label>Pounds<input id="ww" type="number" step="0.1" inputmode="decimal"></label>
+  <button class="btn" style="flex:1 1 100%" onclick="addWeight()">Save weight</button></div></div>`;
+ h+=`<div class="sec">History</div><div class="card">`;
+ const rec=W.map((x,i)=>({...x,i})).reverse().slice(0,30);
+ if(!rec.length)h+=`<div class="empty">No weigh-ins yet.</div>`;
+ rec.forEach(x=>h+=`<div class="row"><div class="grow">${x.d}</div><b>${x.w} lbs</b><button class="x" onclick="delW(${x.i})">✕</button></div>`);
+ return h+'</div>';
+}
+function addWeight(){const d=val('wd'),w=+val('ww');if(!d||!w)return;S.weights.push({d,w});save();render()}
+function delW(i){S.weights.splice(i,1);save();render()}
+
+// ── Library ──
+function vLib(){
+ let h=`<div class="sec">Foods</div><div class="card">`;
+ S.foods.forEach((f,i)=>h+=`<div class="row"><div class="grow">${esc(f.n)}<div class="mut">${esc(f.u||'')} · ${f.c} cal · ${f.p}g protein</div></div><button class="x" onclick="delFood(${i})">✕</button></div>`);
+ h+=`</div><div class="card pad"><input id="fn" placeholder="Food name" style="margin-bottom:8px">
+  <div class="frm"><label>Calories<input id="fc" type="number"></label><label>Protein g<input id="fpp" type="number"></label>
+  <label>Unit<input id="fu" placeholder="1 cup"></label><button class="btn" style="flex:1 1 100%" onclick="addFood()">Add food</button></div></div>`;
+ h+=`<div class="sec">Recipes</div><div class="card">`;
+ RECIPES.forEach((r,i)=>h+=`<div class="row"><div class="grow"><b>${esc(r.n)}</b><div class="mut">${r.c} cal · ${r.p}g protein</div><div class="mut">${esc(r.i)}</div></div><button class="btn" onclick="logRecipe(${i})">Log</button></div>`);
+ h+=`</div><div class="sec">Targets</div><div class="card pad"><div class="frm">
+  <label>Calories/day<input id="tc" type="number" value="${S.cal}"></label>
+  <label>Protein g/day<input id="tp" type="number" value="${S.pro}"></label>
+  <label>Start lbs<input id="ts" type="number" value="${S.start}"></label>
+  <label>Goal lbs<input id="tg" type="number" value="${S.goal}"></label>
+  <button class="btn" style="flex:1 1 100%" onclick="saveTargets()">Save targets</button></div></div>`;
+ return h;
+}
+function addFood(){const n=val('fn').trim();if(!n)return;S.foods.push({n,c:+val('fc')||0,p:+val('fpp')||0,u:val('fu')});save();render()}
+function delFood(i){S.foods.splice(i,1);save();render()}
+function logRecipe(i){const r=RECIPES[i];addLog(r.n,r.c,r.p);go('food')}
+function saveTargets(){S.cal=+val('tc')||S.cal;S.pro=+val('tp')||S.pro;S.start=+val('ts')||S.start;S.goal=+val('tg')||S.goal;save();render()}
+
+render();
+</script>
+</body>
+</html>
