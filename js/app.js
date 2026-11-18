@@ -13,7 +13,7 @@ App.render = function () {
     </div>
     ${showToday ? '<button class="pill" data-act="today">Today</button>' : ''}`;
 
-  const key = p + ui.date, enter = key !== ui.lastKey;
+  const key = p, enter = key !== ui.lastKey;
   ui.lastKey = key;
   document.getElementById('main').innerHTML = `<section class="${enter ? 'enter' : ''}">${A.pages[p]()}</section>`;
 

@@ -3,7 +3,6 @@ const App = window.App = {
   DAY: 864e5,
   DOW: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   WEEK: ['W', 'W', 'W', 'A', 'B', 'A', 'W'],
-  SLOTS: ['Breakfast', 'Lunch', 'Snack', 'Pre-shift', 'Dinner'],
   TITLES: {home: 'Overview', workout: 'Workout', refs: 'Workout References', calories: 'Calories', planner: 'Meal Planner', weight: 'Weight'},
   PLAN: {
     A: {name: 'Full body lift', ex: [['Goblet squat', '3 x 10'], ['Push-ups or bench press', '3 x 8-12'], ['One-arm dumbbell row', '3 x 10 each'], ['Dumbbell overhead press', '3 x 8-12'], ['Plank', '3 x 30 sec']]},

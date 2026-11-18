@@ -85,3 +85,12 @@ nav button:active{transform:scale(.92)}
 .enter>*:nth-child(n+2){animation-delay:.05s}
 .enter>*:nth-child(n+5){animation-delay:.1s}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-bottom:12px}
+.colday{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:6px 3px 4px;min-height:160px;color:var(--mut);font:inherit;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;gap:4px;transition:background .2s,border-color .2s;min-width:0}
+.colday:active{transform:scale(.96)}
+.colday small{font-size:10px;text-transform:uppercase;text-align:center;letter-spacing:.04em}
+.colday b{font-size:15px;color:#fff;text-align:center}
+.colday.today b{color:var(--p1)}
+.colday.sel{border-color:var(--p1);background:#2a0c15}
+.colday .chips{display:flex;flex-direction:column;gap:3px;margin-top:4px;min-width:0}
+.colday .chips span{display:block;font-size:10px;line-height:1.2;background:var(--d1);color:#fff;border-radius:4px;padding:3px 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
