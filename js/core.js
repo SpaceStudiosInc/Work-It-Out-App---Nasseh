@@ -3,7 +3,8 @@ const App = window.App = {
   DAY: 864e5,
   DOW: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   WEEK: ['W', 'W', 'W', 'A', 'B', 'A', 'W'],
-  TITLES: {home: 'Overview', workout: 'Workout', refs: 'Workout References', calories: 'Calories', recipes: 'Recipes', weight: 'Weight'},
+  SLOTS: ['Breakfast', 'Lunch', 'Snack', 'Pre-shift', 'Dinner'],
+  TITLES: {home: 'Overview', workout: 'Workout', refs: 'Workout References', calories: 'Calories', planner: 'Meal Planner', weight: 'Weight'},
   PLAN: {
     A: {name: 'Full body lift', ex: [['Goblet squat', '3 x 10'], ['Push-ups or bench press', '3 x 8-12'], ['One-arm dumbbell row', '3 x 10 each'], ['Dumbbell overhead press', '3 x 8-12'], ['Plank', '3 x 30 sec']]},
     B: {name: 'Leg and hinge day', ex: [['Romanian deadlift', '3 x 10'], ['Incline or floor press', '3 x 10'], ['Lat pulldown or band row', '3 x 12'], ['Walking lunges', '3 x 8 each'], ['Dead bug', '3 x 10 each']]},
@@ -11,22 +12,14 @@ const App = window.App = {
     L: {name: 'Lunch circuit (40 min)', ex: [['Push-ups', '3 rounds x 10'], ['Bodyweight squats', '3 rounds x 15'], ['Reverse lunges', '3 rounds x 12 each'], ['Plank', '3 rounds x 30 sec'], ['Brisk walk', '5 min']]}
   },
   RECIPES: [
-    {n: 'Chicken salad wrap', c: 380, p: 42, i: '5 oz chicken, 1/2 cup nonfat Greek yogurt, celery, mustard, whole-wheat wrap',
-     s: ['Dice cooked chicken and mix with Greek yogurt, mustard, and chopped celery.', 'Season with salt and pepper.', 'Lay out the wrap, add lettuce, spoon the filling on, and roll tight.']},
-    {n: 'Turkey taco lettuce wraps', c: 360, p: 40, i: '6 oz 93% lean ground turkey, taco seasoning, lettuce cups, salsa, light cheese',
-     s: ['Brown the turkey in a non-stick pan over medium heat, breaking it up.', 'Add taco seasoning and a splash of water. Simmer 3 minutes.', 'Spoon into lettuce cups and top with salsa and a little cheese.']},
-    {n: 'Chicken veggie stir fry', c: 420, p: 45, i: '6 oz chicken, broccoli, peppers, low-sodium soy, 1/2 cup rice',
-     s: ['Cut the chicken into bite pieces and cook in a hot pan for 5 to 6 minutes.', 'Add broccoli and peppers and stir fry for 4 minutes.', 'Add low-sodium soy and garlic. Serve over 1/2 cup cooked rice.']},
-    {n: 'Egg white veggie scramble', c: 320, p: 34, i: '1 cup egg whites + 1 egg, spinach, peppers, mushrooms, 1 slice light toast',
-     s: ['Saute spinach, peppers, and mushrooms in a non-stick pan for 3 minutes.', 'Pour in the egg whites and one whole egg. Stir over medium-low heat.', 'Serve with a slice of light toast.']},
-    {n: 'Cottage cheese protein pancakes', c: 340, p: 38, i: '1 cup cottage cheese, 2 eggs, 1/2 cup oats, berries',
-     s: ['Blend cottage cheese, eggs, and oats until smooth.', 'Pour small rounds onto a lightly oiled non-stick pan.', 'Cook 2 minutes per side. Top with berries.']},
-    {n: 'Shrimp cauliflower rice bowl', c: 360, p: 38, i: '6 oz shrimp, cauliflower rice, salsa, 1/4 avocado',
-     s: ['Microwave the cauliflower rice for 3 minutes.', 'Sear the shrimp 2 minutes per side with pepper and lime.', 'Build the bowl with rice, shrimp, salsa, and avocado.']},
-    {n: 'Chocolate Greek yogurt bowl', c: 260, p: 35, i: '1 scoop chocolate protein, 1 cup nonfat Greek yogurt, berries, cocoa',
-     s: ['Stir the protein into the yogurt until smooth. Add water a spoon at a time if it is thick.', 'Top with berries and a dusting of cocoa.']},
-    {n: 'Chicken bean chili', c: 420, p: 48, i: '6 oz chicken, 1/2 cup beans, diced tomatoes, chili powder',
-     s: ['Brown 6 oz diced chicken in a pot.', 'Add beans, diced tomatoes, chili powder, cumin, and salt. Simmer 20 minutes.', 'Batch cook and portion for 3 to 4 days.']}
+    {n: 'Green goddess chicken salad wrap', c: 380, p: 42},
+    {n: 'Turkey taco lettuce wraps', c: 360, p: 40},
+    {n: 'Chicken veggie stir fry', c: 420, p: 45},
+    {n: 'Egg white veggie scramble', c: 320, p: 34},
+    {n: 'Cottage cheese protein pancakes', c: 340, p: 38},
+    {n: 'Shrimp cauliflower rice bowl', c: 360, p: 38},
+    {n: 'Chocolate Greek yogurt bowl', c: 260, p: 35},
+    {n: 'Chicken bean chili', c: 420, p: 48}
   ],
 
   pages: {},
@@ -36,7 +29,7 @@ const App = window.App = {
 
   defaults() {
     return {start: 255, goal: 190, cal: 2200, pro: 180, rate: 1.5, waterGoal: 8, startDate: null,
-            weights: [], logs: {}, water: {}, done: {}};
+            weights: [], logs: {}, water: {}, done: {}, plan: {}};
   },
   load() {
     try { return Object.assign(this.defaults(), JSON.parse(localStorage.getItem(this.KEY)) || {}); }
@@ -91,6 +84,13 @@ const App = window.App = {
       return `<button class="chip ${sel ? 'sel' : ''} ${has ? 'has' : ''}" data-act="day" data-arg="${s}">
         <small>${A.DOW[x.getDay()]}</small><b>${x.getDate()}</b>${tail}</button>`;
     }).join('')}</div>`;
+  },
+
+  addLog(n, c, p) {
+    const S = this.state, d = this.ui.date;
+    S.logs[d] = S.logs[d] || [];
+    S.logs[d].push({n, c: Math.round(c), p: Math.round(p)});
+    this.save();
   },
 
   sortWeights() {

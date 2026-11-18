@@ -3,7 +3,7 @@ App.render = function () {
   const navKey = p === 'refs' ? 'workout' : p;
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.arg === navKey));
 
-  const usesDate = p === 'workout' || p === 'calories';
+  const usesDate = p === 'workout' || p === 'calories' || p === 'planner';
   const d = A.pd(usesDate ? ui.date : A.today());
   const showToday = usesDate && ui.date !== A.today();
   document.getElementById('top').innerHTML = `

@@ -25,8 +25,9 @@ App.pages.calories = function () {
 
 App.actions.addMeal = () => {
   const A = App, c = +A.val('mc');
-  if (!c) return;
+  if (!c) return A.toast('Enter calories first');
   A.addLog(A.val('mn').trim() || 'Meal', c, +A.val('mp') || 0);
+  A.render();
 };
 App.actions.delMeal = el => {
   const A = App;
@@ -38,4 +39,5 @@ App.actions.logRecipe = el => {
   const A = App, r = A.RECIPES[+el.dataset.arg];
   A.addLog(r.n, r.c, r.p);
   A.toast('Added ' + r.n);
+  A.render();
 };
